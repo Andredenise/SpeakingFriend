@@ -1,0 +1,39 @@
+## Setup
+    # Put all the imports here.
+
+## 1. Record the user with the computer's microphone
+    # Inputs: None
+    # Outputs: An audio waveform (as a numpy array)
+    #
+    # The code needs to initialize the input audio device and capture the audio.
+    # This is how it is done in the toolbox:
+    # https://github.com/CorentinJ/Real-Time-Voice-Cloning/blob/master/toolbox/ui.py#L219
+
+
+## 2. Use automatic speech recognition to determine what the user said
+    # Inputs: Audio waveform from step 1
+    # Outputs: Text
+    #
+    # First, the code needs to set up your ASR package.
+    # Next, pass the audio to ASR to get the user's transcribed speech.
+
+
+## 3. Input to GPT-2 and get a response (text)
+    # Inputs: Text (transcribed speech from user in step 2)
+    # Outputs: Text
+    #
+    # Your script already does this.
+
+
+## 4. Provide text and voice recording to Real-Time-Voice-Cloning to generate audio in the user's voice and play it on speakers or headphones
+    # Inputs:  Audio waveform from step 1
+    #.         Text (GPT output from step 3)
+    #
+    # Outputs: None
+    #
+    # Most of these functions are demonstrated in demo_rtvc.py
+    # a. This section first creates a speaker embedding from the recording in step 1.
+    # b. You may also want to break up the GPT text into individual sentences.
+    # c. Input the embedding and text to the synthesizer, to get a mel spectrogram.
+    # d. Give the mel spectrogram to the vocoder to get an audio waveform (as a numpy array)
+    # e. Play back the audio through the computer's output sound device.
