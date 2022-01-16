@@ -14,7 +14,7 @@ duration = 5  # seconds
 
 # Start recording the user
 if keyboard.is_pressed(' '): 
-    original_wav = sd.rec(duration*sampling_rate, sampling_rate, 1)
+    original_wav = sd.rec(duration*sampling_rate, sampling_rate, 1, dtype='int32')
 
 # Display a progress bar while recording
 # Get current time to keep track of recording length
@@ -27,13 +27,16 @@ recording_length = time() - start_time
 if recording_length < duration:
     original_wav = original_wav[:int(recording_length*sampling_rate)]
 
+# Save as WAV file in 32-bit format
+write('output.wav', sampling_rate, original_wav.astype(np.int32))
+sound = "output.wav"
 
-def there_exists(terms):
-    for term in terms:
-        if term in voice_data:
-            return True
-
-
+# Convert audio to text
+r = sr.Recognizer() # initialise a recogniser
+with sr.AudioFile(sound) as source:
+   r.adjust_for_ambient_noise(source)
+   audio = r.listen(source)
+   voice_data = r.recognize_google(audio)
 
 
 
