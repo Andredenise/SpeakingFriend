@@ -8,6 +8,7 @@ from pathlib import Path
 import os.path
 from tqdm import trange
 from time import sleep, time
+from transformers import BlenderbotTokenizer, BlenderbotForConditionalGeneration # Import the model class and the tokenizer for the model
 
 # First we have to make a chat.txt directory where we send all input and outpu text to so we have a document with the whole conversation
 # Function to check if chat.txt already exist
@@ -50,6 +51,20 @@ vocoder.load_model(Path("vocoder_VC/saved_models/pretrained/pretrained.pt"))
 
 # Function to get output of Interact_gpt_model
 # -----------------------------------------------
+
+# Alternative for the model, instant call function for other model
+# -----------------------------------------------
+
+tokenizer = BlenderbotTokenizer.from_pretrained("facebook/blenderbot-400M-distill") # Download and setup the model and tokenizer
+model = BlenderbotForConditionalGeneration.from_pretrained("facebook/blenderbot-400M-distill")
+
+utterance = "Here has to come the output of the record_speaker --> voice_data"
+
+inputs = tokenizer(utterance, return_tensors="pt") # Tokenize the utterance
+
+res = model.generate(**inputs) # Passing through the utterances to the Blenderbot model
+
+output = tokenizer.decode(res[0]) # Decoding the model output
 
 # Function to start Voice_cloning.py
 # -----------------------------------------------
