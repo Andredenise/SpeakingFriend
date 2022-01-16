@@ -22,7 +22,6 @@ print("Created the embedding")
             #"This is an example so the code will run."]
 
 # Example how we can split the input text in sentences
-
 texts = []
 points_list = [0]  
 for pos,char in enumerate(text):
