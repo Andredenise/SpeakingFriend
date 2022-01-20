@@ -1,8 +1,8 @@
-from encoder_voice_cloning.params_data import *
-from encoder_voice_cloning.model import SpeakerEncoder
-from encoder_voice_cloning.audio import preprocess_wav   # We want to expose this function from here
+from voice_cloning_files.encoder_voice_cloning.params_data import *
+from voice_cloning_files.encoder_voice_cloning.model import SpeakerEncoder
+from voice_cloning_files.encoder_voice_cloning.audio import preprocess_wav   # We want to expose this function from here
 from matplotlib import cm
-from encoder_voice_cloning import audio
+from voice_cloning_files.encoder_voice_cloning import audio
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np

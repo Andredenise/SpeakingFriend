@@ -2,8 +2,8 @@ import os # to remove creat
 import tensorflow as tf
 from voice_cloning_files.synthesizer.utils import text
 from voice_cloning_files.synthesizer.inference import Synthesizer
-from voice_cloning_files.encoder_voice_cloning import inference as encoder
-from voice_cloning_files.vocoder_voice_cloning import inference as vocoder
+import voice_cloning_files.encoder_voice_cloning.inference as encoder
+import voice_cloning_files.vocoder_voice_cloning.inference as vocoder
 from pathlib import Path
 import os.path
 from tqdm import trange
@@ -30,9 +30,9 @@ chat = open(file_name, 'w')
 # This only needs to be done once, at the beginning of your script.
 # We have to do this in the begin before the while loop because it only has to be done once
 print("Preparing the encoder, the synthesizer and the vocoder...")
-encoder.load_model(Path("encoder_VC/saved_models/pretrained.pt"))
-synthesizer = Synthesizer(Path("synthesizer/saved_models/pretrained/pretrained.pt"))
-vocoder.load_model(Path("vocoder_VC/saved_models/pretrained/pretrained.pt"))
+encoder.load_model(Path("voice_cloning_files/encoder_voice_cloning/saved_models/pretrained.pt"))
+synthesizer = Synthesizer(Path("voice_cloning_files/synthesizer/saved_models/pretrained/pretrained.pt"))
+vocoder.load_model(Path("voice_cloning_files/vocoder_voice_cloning/saved_models/pretrained/pretrained.pt"))
 
 
 
