@@ -16,7 +16,7 @@ from pathlib import Path
 
 class RTVC:
     def __init__(self,
-                 wav_path='output.wav',
+                 wav_path='utterance.wav',
                  sampling_rate=44100,
                  duration=5,
                  encoder_model="pretrained.pt",
@@ -34,13 +34,16 @@ class RTVC:
         self.blender_bot = None
         self._load()
 
+    # Load the models
     def _load(self):
         print("Preparing the encoder, the synthesizer and the vocoder...")
         self.encoder = encoder.load_model(Path("voice_cloning_files/encoder_voice_cloning/saved_models/"+self.encoder_model))
         self.synthesizer = Synthesizer(Path("voice_cloning_files/synthesizer/saved_models/pretrained/"+self.synthesizer_model))
         self.vocoder = vocoder.load_model(Path("voice_cloning_files/vocoder_voice_cloning/saved_models/pretrained/"+self.vocoder_model))
         self.blender_bot = BB()
-
+    
+    # Function to record the speaker and get the text input as long as the utterance.wav
+    # -----------------------------------------------
     def get_utterance_data(self):
         original_wav = sd.rec(self.duration*self.sampling_rate, self.sampling_rate, 1, dtype='int32')
 
@@ -67,6 +70,7 @@ class RTVC:
             voice_data = r.recognize_google(audio)
         return voice_data
 
+    # Create the speaker embedding
     def preprocess_wav(self):
         original_wav, sampling_rate = librosa.load(self.wav_path)
         preprocessed_wav = encoder.preprocess_wav(original_wav, sampling_rate)
@@ -77,6 +81,10 @@ class RTVC:
         # Place the rest of the code in your generation loop.
         # texts = ["Put your GPT texts in a list, one per sentence.",
                     #"This is an example so the code will run."]
+    
+    # Function to get the text input to the chatbot and 
+    # the text output from the chatbot to the synthesizer as long as the embed from preprocess_wav
+    # -----------------------------------------------
     def answer(self):
         voice_data = self.get_utterance_data()
         embed = self.preprocess_wav()

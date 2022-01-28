@@ -9,6 +9,8 @@ class BB:
         self.tokenizer = BlenderbotTokenizer.from_pretrained("facebook/blenderbot-400M-distill") # Download and setup the model and tokenizer
         self.model = BlenderbotForConditionalGeneration.from_pretrained("facebook/blenderbot-400M-distill")
 
+    # Function to get output of Interact_gpt_model
+    # -----------------------------------------------
     def get_answer(self,voice_data):
         inputs = self.tokenizer(voice_data, return_tensors="pt") # Tokenize the utterance
         res = self.model.generate(**inputs) # Passing through the utterances to the Blenderbot model
