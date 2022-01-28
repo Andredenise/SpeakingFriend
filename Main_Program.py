@@ -1,4 +1,4 @@
-from Voice_Cloning import RTVC
+from Voice_cloning import RTVC
 # Initialize the models
 rtvc = RTVC()
 
